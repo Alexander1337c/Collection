@@ -55,3 +55,75 @@
 .text-grid p {
   margin-bottom: 2px;
 }
+
+@media screen and (max-width: 990px) {
+  .img-top {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .text-top {
+    display: flex;
+    padding: 0px;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .text-title h2 {
+    font-size: 18px;
+  }
+  .grid-wrap {
+    flex-direction: row;
+  }
+  .grid-wrap .grid {
+    width: 50%;
+    padding: 10px;
+    flex-direction: row;
+    align-items: center;
+  }
+  .img-grid {
+    width: 50%;
+    margin-right: 10px;
+  }
+  .text-grid {
+    margin-top: 0;
+  }
+  .text-grid p {
+    font-size: 13px;
+  }
+  .profile-item-text {
+    margin-top: 20px;
+  }
+  .profile-item a p {
+    font-size: 15px;
+    text-align: center;
+    margin-left: 0;
+  }
+  .profile-item {
+    width: 20%;
+  }
+}
+@media screen and (max-width: 530px) {
+  .wrap-top {
+    padding: 10px 10px;
+    flex-direction: column;
+    align-items: center;
+  }
+  .img-top {
+    width: 50%;
+  }
+  .text-top {
+    margin-left: 0;
+    margin-top: 20px;
+  }
+  .grid-wrap {
+    flex-wrap: wrap;
+  }
+  .grid-wrap .grid {
+    width: 100%;
+    justify-content: center;
+  }
+  .img-grid{
+    width: 50%;
+  }
+}

@@ -17,7 +17,7 @@ router.get('/', auth, async (req, res) => {
 });
 router.post('/', [
     check('email', 'Please include a valid email').isEmail(),
-    check('password', 'Password is required').exists()
+    check('password', 'Пароль обязателен').exists()
 ],
     async (req, res) => {
         const errors = validationResult(req);
@@ -29,12 +29,12 @@ router.post('/', [
         try {
             let user = await User.findOne({ email });
             if (!user) {
-                return res.status(400).json({ errors: [{ msg: 'Invalid Credentials' }] })
+                return res.status(400).json({ errors: [{ msg: 'Неверные данные для входа' }] })
             };
 
             const isMatch = await bcrypt.compare(password, user.password);
             if (!isMatch) {
-                return res.status(400).json({ errors: [{ msg: 'Invalid Credentials' }] })
+                return res.status(400).json({ errors: [{ msg: 'Неверные данные для входа' }] })
             }
 
             const payload = {

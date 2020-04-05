@@ -9,9 +9,11 @@ const ProfileItem = ({
     addLike,
     removeLike,
     profile: {
-        user: { _id, name, },
+        _id,
+        user: { name, },
         descr,
         title,
+        item,
         file: { data },
         likes,
         comments
@@ -29,15 +31,17 @@ const ProfileItem = ({
                 <p>Название: <span>{title.slice(0, 15)}</span> </p>
                 <p>Автор: <span>{name}</span></p>
                 <p>Описание: <span>{descr.slice(0, 15)}...</span></p>
+
+                <p>Айтемы: {item.length > 0 ? <span>{item.length}</span> : <span>нет</span>}</p>
                 <Link to={`/profile/${_id}`} className='btn btn-primary my-primary'>
                     Посмотреть
                     </Link>
                 <div className='footer-card'>
                     <div className='comments'>
-                        Комментарии {' '}
-                        {comments.length > 0 && (
+                        Комментарии: {' '}
+                        {comments.length > 0 ? (
                             <span className='comment-count'>{comments.length}</span>
-                        )}
+                        ) : (<span className='comment-count'>нет</span>)}
                     </div>
                     <div className='like'>
                         <button className='btn btn-light' onClick={() => addLike(_id)} type='button'>

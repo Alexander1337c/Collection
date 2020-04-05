@@ -81,7 +81,7 @@ router.get('/', async (req, res) => {
 router.get('/user/:user_id', async (req, res) => {
     try {
         const profile = await Profile.findOne({
-            user: req.params.user_id
+            _id: req.params.user_id
         }).populate('user', ['name', 'avatar']);
 
         if (!profile) return res.status(400).json({ msg: 'Profile not found' });
@@ -162,12 +162,12 @@ router.delete('/item/:item_id', auth, async (req, res) => {
 
 router.put('/like/:id', auth, async (req, res) => {
     try {
-        const profile = await Profile.findOne({ user: req.user.id })
+        const profile = await Profile.findOne({ _id: req.params.id })
 
-        if (profile.likes.filter(like => like.user.toString() === req.user.id).length > 0) {
+        if (profile.likes.filter(like => like._id.toString() === req.params.id).length > 0) {
             return res.status(400).json({ msg: 'Post already like' })
         }
-        profile.likes.unshift({ user: req.user.id })
+        profile.likes.unshift({ _id: req.params.id })
 
         await profile.save()
         res.json(profile.likes)
@@ -179,12 +179,12 @@ router.put('/like/:id', auth, async (req, res) => {
 
 router.put('/unlike/:id', auth, async (req, res) => {
     try {
-        const profile = await Profile.findOne({ user: req.user.id })
+        const profile = await Profile.findOne({ _id: req.params.id })
 
-        if (profile.likes.filter(like => like.user.toString() === req.user.id).length === 0) {
+        if (profile.likes.filter(like => like._id.toString() === req.params.id).length === 0) {
             return res.status(400).json({ msg: 'Post has not yet been like' })
         }
-        const removeIndex = profile.likes.map(like => like.user.toString().indexOf(req.user.id))
+        const removeIndex = profile.likes.map(like => like._id.toString().indexOf(req.params.id))
 
         profile.likes.splice(removeIndex, 1)
 
