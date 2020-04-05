@@ -6,18 +6,15 @@ import PropTypes from 'prop-types'
 import { logout } from '../../actions/auth'
 import './Navbar.css'
 
-const Navbar = ({ auth: { isAuthenticated, loading, user }, logout }) => {
+const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
 
     const authLinks = (
         <ul className="navbar-nav ml-auto">
             <li className="nav-item">
-                <NavLink className="nav-link" to="/profiles">Пользователи</NavLink>
+                <NavLink className="nav-link" to="/dashboard"><i class="far fa-file-alt"></i>Коллекции</NavLink>
             </li>
             <li className="nav-item">
-                <NavLink className="nav-link" to="/dashboard"><i className="fas fa-user"></i>Профиль</NavLink>
-            </li>
-            <li className="nav-item">
-                <a className="logout" onClick={logout} href='#!'>Выйти
+                <a className="logout" onClick={logout} href='/login'>Выйти
                 </a>
             </li>
         </ul>
@@ -25,9 +22,6 @@ const Navbar = ({ auth: { isAuthenticated, loading, user }, logout }) => {
 
     const guestLinks = (
         <ul className="navbar-nav ml-auto">
-            <li className="nav-item">
-                <NavLink className="nav-link" to="/profiles">Пользователи</NavLink>
-            </li>  
             <li className="nav-item">
                 <NavLink className="nav-link" to="/register">Регистрация<span className="sr-only">(current)</span></NavLink>
             </li>

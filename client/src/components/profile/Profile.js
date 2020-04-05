@@ -6,16 +6,17 @@ import Spiner from '../Layout/Spiner'
 import ProfileTop from './ProfileTop'
 import { getProfileById } from '../../actions/profile'
 import ProfileTable from './ProfileTable'
+import Comments from './Comments'
+import CommentItem from './CommentItem'
 
 const Profile = ({
     getProfileById,
     profile: { profile, loading },
-    auth,
     match
 }) => {
     const nullProfile = !profile;
     useEffect(() => {
-        getProfileById(match.params.id);
+        getProfileById(match.params.id)
     }, [getProfileById, match.params.id, nullProfile]);
     return (
         <Fragment>
@@ -43,12 +44,17 @@ const Profile = ({
                     </div>
 
                 </div>
+                <Comments profileId={profile._id} />
+                <div className='comments'>
+                    {profile.comments.map(comment => (
+                        <CommentItem key={comment._id} comment={comment} profileId={profile._id} />
+                    ))}
+                </div>
 
                 <Link to='/profiles' className='btn btn-light'>
                     Назад
                 </Link>
             </Fragment>}
-
         </Fragment>
     )
 }
@@ -60,8 +66,7 @@ Profile.propTypes = {
 };
 
 const mapStateToProps = state => ({
-    profile: state.profile,
-    auth: state.auth
+    profile: state.profile
 });
 
 export default connect(mapStateToProps, { getProfileById })(Profile);

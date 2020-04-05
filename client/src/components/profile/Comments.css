@@ -1,0 +1,98 @@
+.bg-my {
+  display: flex;
+  margin-top: 35px;
+  border-bottom: 1px solid;
+  border-color: #17a2b8;
+}
+.bg-my h3 {
+  color: #17a2b8;
+  margin-bottom: auto;
+}
+.form-my {
+  display: flex;
+  margin-top: 30px;
+  flex-direction: column;
+}
+.textArea {
+  resize: none;
+  padding: 10px;
+  border-radius: 8px;
+  outline: none;
+}
+.post-item {
+  display: flex;
+  flex-direction: row;
+  margin: 40px 0 40px 0;
+}
+.form-my input {
+  margin-right: auto;
+}
+.profile-item {
+  width: 10%;
+}
+.profile-item-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  margin-left: 5%;
+  margin-top: 15px;
+}
+.profile-item-text .post-date {
+  margin-bottom: 0px;
+  font-size: 14px;
+}
+.profile-item-text .my-1 {
+  margin-top: 5px !important;
+  font-size: 19px;
+}
+.profile-item a {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.profile-item a img {
+    border-radius: 50%;
+  width: 100%;
+}
+.profile-item a p {
+  margin-left: 5px;
+  color: rgb(77, 77, 77);
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-weight: 500;
+  transition: all 0.1s ease-in-out;
+}
+.profile-item a p:hover {
+  color: #17a2b8;
+}
+.profile-item a:hover {
+  text-decoration: none;
+}
+.delete-icon {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: 20px;
+}
+.delete-icon .my-btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border: none;
+  font-size: 14px;
+  color: grey;
+  background-color: white;
+  transition: color 0.2s ease-in-out;
+}
+.delete-icon .my-btn i {
+  font-weight: 600;
+  font-size: 14px;
+  color: grey;
+  margin-left: 5px;
+  transition: color 0.2s ease-in-out;
+}
+.my-btn:hover,
+.my-btn:hover i {
+  color: red;
+}
+

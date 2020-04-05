@@ -12,24 +12,25 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
     }, [getProfiles])
 
     return (
-        <Fragment>
+        <div className="container">
             {loading ? (
                 <Spiner />
             ) : (
                     <Fragment>
-                        <h1 className='large '>Пользователи</h1>
+                        <h1 className='large '>Коллекции</h1>
                         <div className='profiles'>
                             {profiles.length > 0 ? (
                                 profiles.map(profile => (
                                     <ProfileItem key={profile._id} profile={profile} />
                                 ))
                             ) : (
-                                    <h4>Профилей нет...</h4>
+                                    <Spiner />
                                 )}
                         </div>
                     </Fragment>
                 )}
-        </Fragment>
+        </div>
+
     )
 
 }

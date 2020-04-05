@@ -1,3 +1,6 @@
+.container {
+  margin-top: 40px;
+}
 .profiles {
   display: flex;
   flex-direction: row;
@@ -30,7 +33,7 @@
   display: flex;
   flex-direction: column;
   margin-top: 5px;
-  opacity: 0;
+  opacity: 1;
   transition: all 0.3s ease-in-out;
 }
 .text p {
@@ -51,17 +54,23 @@ p span {
 .my-primary {
   margin-top: 15px;
 }
-.footer-card{
+.footer-card {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   margin-top: 10px;
   justify-content: space-between;
 }
-.like{
-  margin-right: 10px;
+.comments {
+  margin-bottom: 5px;
+}
+.like {
+  margin-left: auto;
+}
+.like button {
+  margin-left: 10px;
 }
 .like i {
-  margin-left: 20px;
+  margin-left: 5px;
 }
 @media (max-width: 990px) {
   .profile-wrap {
@@ -69,16 +78,15 @@ p span {
   }
 }
 @media screen and (max-width: 770px) {
-  
   .profile-wrap {
     width: 50%;
   }
 }
 @media screen and (max-width: 350px) {
-  .profiles{
-      flex-direction: column;
+  .profiles {
+    flex-direction: column;
   }
-    .profile-wrap {
-      width: 80%;
-    }
+  .profile-wrap {
+    width: 80%;
   }
+}

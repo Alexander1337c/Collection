@@ -1,0 +1,4 @@
+{
+    "mongoURI": "mongodb+srv://Alexander:sanj408960@course-cofox.azure.mongodb.net/test?retryWrites=true&w=majority",
+    "jwtSecret": "mySecretToken"
+}

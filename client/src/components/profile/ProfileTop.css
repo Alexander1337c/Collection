@@ -1,11 +1,19 @@
 .wrap-top {
   display: flex;
   flex-direction: row;
-  margin-top: 40px;
-  border-top: 1px solid grey;
-  border-bottom: 1px solid grey;
+  border-top: 1px solid #80808082;
+  border-bottom: 1px solid #80808082;
   padding: 30px 0;
 }
+.text-title h2,
+.text-name p {
+  color: #5a5a5a82 !important;
+}
+.text-title h2 span,
+.text-name p span {
+  color: #5a5a5a !important;
+}
+
 .img-top {
   width: 35%;
 }

@@ -7,7 +7,9 @@ import {
     UPDATE_PROFILE,
     CLEAR_PROFILE,
     ACCOUNT_DELETED,
-    UPDATE_LIKES
+    UPDATE_LIKES,
+    ADD_COMMENT,
+    REMOVE_COMMENT
 
 } from './types'
 
@@ -48,36 +50,37 @@ export const getProfiles = () => async dispatch => {
 // Add like
 export const addLike = id => async dispatch => {
     try {
-      const res = await axios.put(`/api/profile/like/${id}`);
-  
-      dispatch({
-        type: UPDATE_LIKES,
-        payload:  id, likes: res.data 
-      });
+        const res = await axios.put(`/api/profile/like/${id}`);
+
+        dispatch({
+            type: UPDATE_LIKES,
+            payload: { id, likes: res.data },
+
+        });
     } catch (err) {
-      dispatch({
-        type: PROFILE_ERROR,
-        payload: { msg: err.response.statusText, status: err.response.status }
-      });
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        });
     }
-  };
-  
-  // Remove like
-  export const removeLike = id => async dispatch => {
+};
+
+// Remove like
+export const removeLike = id => async dispatch => {
     try {
-      const res = await axios.put(`/api/profile/unlike/${id}`);
-  
-      dispatch({
-        type: UPDATE_LIKES,
-        payload:  id, likes: res.data 
-      });
+        const res = await axios.put(`/api/profile/unlike/${id}`);
+
+        dispatch({
+            type: UPDATE_LIKES,
+            payload: { id, likes: res.data }
+        });
     } catch (err) {
-      dispatch({
-        type: PROFILE_ERROR,
-        payload: { msg: err.response.statusText, status: err.response.status }
-      });
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        });
     }
-  };
+};
 
 
 export const getProfileById = userId => async dispatch => {
@@ -208,3 +211,51 @@ export const deleteAccount = () => async dispatch => {
             })
         }
 }
+
+// Add comment
+export const addComment = (profileId, formData) => async dispatch => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
+
+    try {
+        const res = await axios.post(
+            `/api/profile/comment/${profileId}`,
+            formData,
+            config
+        );
+
+        dispatch({
+            type: ADD_COMMENT,
+            payload: res.data
+        });
+
+        dispatch(setAlert('Комментарий добавлен', 'success'));
+    } catch (err) {
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        });
+    }
+};
+
+// Delete comment
+export const deleteComment = (profileId, commentId) => async dispatch => {
+    try {
+        await axios.delete(`/api/profile/comment/${profileId}/${commentId}`);
+
+        dispatch({
+            type: REMOVE_COMMENT,
+            payload: commentId
+        });
+
+        dispatch(setAlert('Комментарий удален', 'secondary'));
+    } catch (err) {
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        });
+    }
+};
