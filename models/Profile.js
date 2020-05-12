@@ -83,6 +83,15 @@ const ProfileSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     }
+})
+ProfileSchema.index({
+    title: 'text',
+    descr: 'text',
+}, {
+    weights: {
+        name: 5,
+        description: 1,
+    }
 
 })
 module.exports = Profile = mongoose.model('profile', ProfileSchema)

@@ -13,7 +13,6 @@ const AddItem = ({ addItem, history }) => {
     })
     const { title, file, tags } = formData
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value })
-
     const onSubmit = (e) => {
         e.preventDefault()
         const formData = new FormData()

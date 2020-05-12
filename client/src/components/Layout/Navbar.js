@@ -1,6 +1,7 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import Search from './Search'
+import Axios from 'axios'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { logout } from '../../actions/auth'
@@ -8,10 +9,11 @@ import './Navbar.css'
 
 const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
 
+
     const authLinks = (
         <ul className="navbar-nav ml-auto">
             <li className="nav-item">
-                <NavLink className="nav-link" to="/dashboard"><i class="far fa-file-alt"></i>Коллекции</NavLink>
+                <NavLink className="nav-link" to="/dashboard"><i className="far fa-file-alt"></i>Коллекции</NavLink>
             </li>
             <li className="nav-item">
                 <a className="logout" onClick={logout} href='/login'>Выйти
@@ -38,7 +40,9 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
             </button>
 
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                <Search />
+                <Search
+                />
+
                 {!loading && (
                     <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
                 )}

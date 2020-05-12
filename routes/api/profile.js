@@ -69,6 +69,9 @@ router.post('/', [auth, [
 })
 
 router.get('/', async (req, res) => {
+
+    // let term = req.body.searchTerm;
+    // let findArgs = {};
     try {
         const profiles = await Profile.find().populate('user', ['name', 'avatar']);
         res.json(profiles);
@@ -76,6 +79,21 @@ router.get('/', async (req, res) => {
         console.error(err.message);
         res.status(500).send('Server Error');
     }
+    // if (term) {
+    //  const profiles = Profile.find(findArgs)
+    //         .find({ $text: { $search: term } })
+            
+    //         .exec((err, profiles) => {
+    //             if (err) return res.status(400).json({ success: false, err })
+    //             res.status(200).json({ success: true, profiles, postSize: profiles.length })
+    //         })
+    // } else {
+    //     const profiles = Profile.find(findArgs)
+    //         .exec((err, profiles) => {
+    //             if (err) return res.status(400).json({ success: false, err })
+    //             res.status(200).json({ success: true, profiles, postSize: profiles.length })
+    //         })
+    // }
 });
 
 router.get('/user/:user_id', async (req, res) => {
@@ -98,7 +116,7 @@ router.get('/user/:user_id', async (req, res) => {
 
 router.delete('/', auth, async (req, res) => {
     try {
-        await Profile.findOneAndRemove({ user: req.user.id })
+        await Profile.deleteMany({ user: req.user.id });
         await User.findOneAndRemove({ _id: req.user.id })
         res.json({ msg: 'User removed' })
     } catch (err) {
@@ -162,39 +180,46 @@ router.delete('/item/:item_id', auth, async (req, res) => {
 
 router.put('/like/:id', auth, async (req, res) => {
     try {
-        const profile = await Profile.findOne({ _id: req.params.id })
+        const profile = await Profile.findById(req.params.id);
 
-        if (profile.likes.filter(like => like._id.toString() === req.params.id).length > 0) {
-            return res.status(400).json({ msg: 'Post already like' })
+        // Check if the post has already been liked
+        if (profile.likes.some(like => like.user.toString() === req.user.id)) {
+            return res.status(400).json({ msg: 'Вам уже понравилась эта коллекция' });
         }
-        profile.likes.unshift({ _id: req.params.id })
 
-        await profile.save()
-        res.json(profile.likes)
+        profile.likes.unshift({ user: req.user.id });
+
+        await profile.save();
+
+        return res.json(profile.likes);
     } catch (err) {
-        console.error(err.message)
-        res.status(500).send('Server Error')
+        console.error(err.message);
+        res.status(500).send('Server Error');
     }
-})
+});
 
 router.put('/unlike/:id', auth, async (req, res) => {
     try {
-        const profile = await Profile.findOne({ _id: req.params.id })
+        const profile = await Profile.findById(req.params.id);
 
-        if (profile.likes.filter(like => like._id.toString() === req.params.id).length === 0) {
-            return res.status(400).json({ msg: 'Post has not yet been like' })
+        // Check if the post has already been liked
+        if (!profile.likes.some(like => like.user.toString() === req.user.id)) {
+            return res.status(400).json({ msg: 'Вы еще не отмечали коллекцию как понравившуюся' });
         }
-        const removeIndex = profile.likes.map(like => like._id.toString().indexOf(req.params.id))
 
-        profile.likes.splice(removeIndex, 1)
+        // remove the like
+        profile.likes = profile.likes.filter(
+            ({ user }) => user.toString() !== req.user.id
+        );
 
-        await profile.save()
-        res.json(profile.likes)
+        await profile.save();
+
+        return res.json(profile.likes);
     } catch (err) {
-        console.error(err.message)
-        res.status(500).send('Server Error')
+        console.error(err.message);
+        res.status(500).send('Server Error');
     }
-})
+});
 
 router.post(
     '/comment/:id',

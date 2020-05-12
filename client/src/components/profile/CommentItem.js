@@ -26,7 +26,9 @@ const CommentItem = ({
                 </p>
                 <p className='my-1'>{text}</p>
             </div>
-            {!auth.loading && user === auth.user._id && (
+
+
+            {auth.isAuthenticated !== true || user === auth.user._id && (
                 <div className='delete-icon'>
                     <button
                         onClick={() => deleteComment(profileId, _id)}

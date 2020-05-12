@@ -10,7 +10,7 @@ const ProfileItem = ({
     removeLike,
     profile: {
         _id,
-        user: { name, },
+        user: { name },
         descr,
         title,
         item,

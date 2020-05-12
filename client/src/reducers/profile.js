@@ -6,7 +6,8 @@ import {
     GET_PROFILES,
     UPDATE_LIKES,
     ADD_COMMENT,
-    REMOVE_COMMENT
+    REMOVE_COMMENT,
+    SEARCH_PROFILE
 } from "../actions/types";
 
 const initialState = {
@@ -41,6 +42,11 @@ export default function (state = initialState, action) {
                 ...state,
                 profiles: payload,
                 loading: false
+            }
+        case SEARCH_PROFILE:
+            return {
+                ...state,
+                profiles: payload
             }
         case PROFILE_ERROR:
             return {

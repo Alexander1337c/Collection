@@ -9,7 +9,8 @@ import {
     ACCOUNT_DELETED,
     UPDATE_LIKES,
     ADD_COMMENT,
-    REMOVE_COMMENT
+    REMOVE_COMMENT,
+    SEARCH_PROFILE
 
 } from './types'
 
@@ -252,6 +253,20 @@ export const deleteComment = (profileId, commentId) => async dispatch => {
         });
 
         dispatch(setAlert('Комментарий удален', 'secondary'));
+    } catch (err) {
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        });
+    }
+};
+export const searchProfiles = (text) => async dispatch => {
+    try {
+        const res = await axios.get(`/api/profile/?q=${text}`);
+        dispatch({
+            type: SEARCH_PROFILE,
+            payload: res.data
+        });
     } catch (err) {
         dispatch({
             type: PROFILE_ERROR,
